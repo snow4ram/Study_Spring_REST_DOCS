@@ -29,7 +29,7 @@ public class Member {
     @Column(name = "name" , nullable = false)
     private String name;
 
-    @Column(name = "create_at" , nullable = false)
+    @Column(name = "created_at" , nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at" , nullable = false)
@@ -38,7 +38,7 @@ public class Member {
     public Member(String email, String name) {
         this.email = email;
         this.name = name;
-        this.createdAt = createTimestamp();
+        this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -52,7 +52,7 @@ public class Member {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public LocalDateTime createTimestamp() {
+    public static LocalDateTime createTimestamp() {
         LocalDateTime startDate = LocalDateTime.parse("2023-01-01T00:00:00");
         LocalDateTime endDate = LocalDateTime.now();
         long days = ChronoUnit.DAYS.between(startDate, endDate);
