@@ -2,13 +2,17 @@ package spring_rest_docs.rest_docs.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import spring_rest_docs.rest_docs.dto.MemberDTO;
 import spring_rest_docs.rest_docs.service.MemberService;
 
-import java.lang.reflect.Member;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -32,19 +36,20 @@ public class MemberController {
     public ResponseEntity<MemberResponse> createMember(@RequestBody @Validated MemberSignupRequest memberSignupRequest) {
 
         MemberDTO save = members.save(memberSignupRequest);
+
         MemberResponse memberCreationCompleted = new MemberResponse(save);
 
         return ResponseEntity.ok().body(memberCreationCompleted);
     }
 
-    @PutMapping("/update/{memberId}")
-    public ResponseEntity<MemberResponse> update(@PathVariable(name = "memberId") Long memberId,@RequestBody MemberModificationRequest memberModificationRequest) {
 
-        log.info("업데이트 회원 이름 ={} " ,memberModificationRequest.getName());
 
-        log.info("업데이트 아이디 = {}" ,memberId);
+    @PutMapping("/modify/{memberId}")
+    public ResponseEntity<MemberResponse> update
+            (@PathVariable(name = "memberId") Long memberId,
+             @RequestBody MemberModificationRequest memberModificationRequest) {
 
-        MemberDTO update = members.update(memberId, memberModificationRequest);
+        MemberDTO update = members.modifyMemberDetailsPut(memberId, memberModificationRequest);
 
 
         MemberResponse response = new MemberResponse(update);
@@ -53,4 +58,19 @@ public class MemberController {
 
 
     }
-}
+
+    @PatchMapping("/modify/{memberId}")
+    public ResponseEntity<MemberResponse> modifyPatch(
+            @PathVariable(name = "memberId") Long memberId,
+            @RequestBody MemberModificationRequest memberModificationRequest) {
+
+
+        MemberDTO update = members.modifyMemberDetailsPatch(memberId, memberModificationRequest);
+
+
+        MemberResponse response = new MemberResponse(update);
+
+        return ResponseEntity.ok().body(response);
+
+
+    }}
