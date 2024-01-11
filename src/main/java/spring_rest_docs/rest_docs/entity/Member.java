@@ -8,7 +8,6 @@ import lombok.ToString;
 import spring_rest_docs.rest_docs.controller.MemberModificationRequest;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;
 
@@ -18,7 +17,7 @@ import java.util.Random;
 @ToString
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberEntity {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +35,7 @@ public class MemberEntity {
     @Column(name = "updated_at" , nullable = false)
     private LocalDateTime updatedAt;
 
-    public MemberEntity(String email, String name) {
+    public Member(String email, String name) {
         this.email = email;
         this.name = name;
         this.createdAt = createTimestamp();
