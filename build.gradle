@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.1'
 	id 'io.spring.dependency-management' version '1.1.4'
+	id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
 group = 'spring_rest_docs'
@@ -12,6 +13,7 @@ java {
 }
 
 configurations {
+	asciidoctorExt
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
@@ -26,16 +28,35 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
+
+	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+ext { // 스니펫 생성 디렉토리 설정
+	snippetsDir = file('build/generated-snippets')
+}
+
+test { // 스니펫 생성 test 테스크 설정
+	outputs.dir snippetsDir
+}
+
+asciidoctor { // asciidoctor 테스크 설정
+	inputs.dir snippetsDir // 스니펫 위치 설정
+	configurations 'asciidoctorExt' // asciidoctor 확장 설정
+	dependsOn test // test 테스크 후 asciidoctor 실행 설정
+}
+
