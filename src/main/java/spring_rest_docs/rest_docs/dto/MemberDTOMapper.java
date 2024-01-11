@@ -8,7 +8,6 @@ import java.util.function.Function;
 
 @Service
 public class MemberDTOMapper implements Function<MemberEntity , MemberDTO> {
-
     @Override
     public MemberDTO apply(MemberEntity memberEntity) {
         return new MemberDTO(
@@ -19,5 +18,4 @@ public class MemberDTOMapper implements Function<MemberEntity , MemberDTO> {
                 memberEntity.getUpdatedAt()
         );
     }
-
 }

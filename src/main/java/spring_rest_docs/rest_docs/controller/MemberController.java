@@ -20,7 +20,6 @@ public class MemberController {
 
     @GetMapping("/find/{memberId}")
     public ResponseEntity<MemberResponse> findMemberInformation(@PathVariable(name = "memberId") Long memberId) {
-
         MemberDTO member = members.findMember(memberId);
 
         MemberResponse memberResponse = new MemberResponse(member);
@@ -33,16 +32,20 @@ public class MemberController {
     public ResponseEntity<MemberResponse> createMember(@RequestBody @Validated MemberSignupRequest memberSignupRequest) {
 
         MemberDTO save = members.save(memberSignupRequest);
-
         MemberResponse memberCreationCompleted = new MemberResponse(save);
 
         return ResponseEntity.ok().body(memberCreationCompleted);
     }
 
     @PutMapping("/update/{memberId}")
-    public ResponseEntity<MemberResponse> modify(@PathVariable(name = "memberId") Long memberId,@RequestBody MemberModificationRequest memberModificationRequest) {
+    public ResponseEntity<MemberResponse> update(@PathVariable(name = "memberId") Long memberId,@RequestBody MemberModificationRequest memberModificationRequest) {
 
-        MemberDTO update = members.modifyMemberDetails(memberId, memberModificationRequest);
+        log.info("업데이트 회원 이름 ={} " ,memberModificationRequest.getName());
+
+        log.info("업데이트 아이디 = {}" ,memberId);
+
+        MemberDTO update = members.update(memberId, memberModificationRequest);
+
 
         MemberResponse response = new MemberResponse(update);
 
