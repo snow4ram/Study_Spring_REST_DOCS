@@ -1,14 +1,13 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/h2/db/RestDocs
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/rest_docs
+    username: root
+    password: 120512zxc@
   jpa:
-    hibernate:
-      ddl-auto: create
+    database-platform: org.hibernate.dialect.MySQLDialect
     properties:
       hibernate:
+        ddl-auto: update
         show_sql: true
         format_sql: true
 
