@@ -15,4 +15,9 @@ public class MemberSignupRequest {
 
     @NotEmpty
     private String name;
+
+    public MemberSignupRequest(String email, String name) {
+        this.email = email;
+        this.name = name;
+    }
 }
