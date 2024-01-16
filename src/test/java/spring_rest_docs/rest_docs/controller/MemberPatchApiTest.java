@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import spring_rest_docs.rest_docs.controller.request.MemberModificationRequest;
 import spring_rest_docs.rest_docs.dto.MemberDTO;
 import spring_rest_docs.rest_docs.service.MemberService;
 import org.springframework.boot.test.mock.mockito.MockBean;

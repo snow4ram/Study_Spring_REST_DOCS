@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import spring_rest_docs.rest_docs.controller.MemberModificationRequest;
+import spring_rest_docs.rest_docs.controller.request.MemberModificationRequest;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
